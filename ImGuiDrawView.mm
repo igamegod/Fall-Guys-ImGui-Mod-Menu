@@ -42,6 +42,8 @@ float fovAmount = 68.0f;
 
 bool CanJumpFunction = false;
 
+bool UpdateAFKManagerFunction = false;
+
 //Methods
 
 //Pointers
@@ -66,9 +68,18 @@ bool CanJump(void* instance) {
     return old_CanJump(instance);
 }
 
+void (*old_UpdateAFKManager)(void* instance);
+void UpdateAFKManager(void* instance) {
+    if (UpdateAFKManagerFunction) {
+        return;
+    }
+    old_UpdateAFKManager(instance);
+}
+
 void loadHooks() {
     HOOK(0x42DF2C4, fieldOfView, old_fieldOfView);
 	HOOK(0x3D04BC8, CanJump, old_CanJump);
+	HOOK(0x30C78E4, UpdateAFKManager, old_UpdateAFKManager);
 }
 
 void setup(){
@@ -292,6 +303,8 @@ static bool MenDeal = true;
                 if (fovSlider) {
                     ImGui::SliderFloat("##fovAmountSlider", &fovAmount, 60.0f, 120.0f);
                 }
+
+                        ImGui::Checkbox("AFK Disabler", &UpdateAFKManagerFunction);
 			
 			ImGui::EndTabItem();
 			}
@@ -324,4 +337,4 @@ static bool MenDeal = true;
     
 }
 
-@end
+@end
