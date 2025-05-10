@@ -5,4 +5,5 @@ I am **not responsible** for any bans, account suspensions, data loss, or any ot
 **Use at your own risk.**
 
 **3 fingers double tap screen to open menu**
+
 **2 fingers double tap screen to close menu**
